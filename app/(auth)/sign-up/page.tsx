@@ -1,9 +1,15 @@
 "use client";
 
+import { CountrySelectField } from "@/components/form/CountrySelectField";
+import FooterLink from "@/components/form/FooterLink";
 import InputField from "@/components/form/InputField";
 import SelectField from "@/components/form/SelectField";
 import { Button } from "@/components/ui/button";
-import { INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS } from "@/lib/contants";
+import {
+  INVESTMENT_GOALS,
+  PREFERRED_INDUSTRIES,
+  RISK_TOLERANCE_OPTIONS,
+} from "@/lib/contants";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -54,7 +60,7 @@ const SignUp = () => {
           validation={{
             required: "Email is required",
             pattern: {
-              value: /^\w+@\w+\.\w+$/,
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
               message: "Email address is required",
             },
           }}
@@ -98,6 +104,14 @@ const SignUp = () => {
           required
         />
 
+        <CountrySelectField
+          name="country"
+          label="Country"
+          control={control}
+          error={errors.country}
+          required
+        />
+
         <Button
           type="submit"
           disabled={isSubmitting}
@@ -107,6 +121,11 @@ const SignUp = () => {
             ? "Creating your account"
             : "Start your investing journey"}
         </Button>
+        <FooterLink
+          text="Already have an account?"
+          href="/sign-in"
+          linkText="Sign In"
+        />
       </form>
     </>
   );
